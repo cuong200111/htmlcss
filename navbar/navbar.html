@@ -1,0 +1,53 @@
+<div class="header_main">
+    <div class="header_main_top">
+        <img src="../img/logo/Logo.png" alt="">
+    </div>
+    <div class="header_main_between">
+        <ul>
+            <!-- Thêm qua vòng lặp -->
+        </ul>
+
+        <script>
+            const locationPath = window.location.pathname;
+            const formatlocation = locationPath.slice(locationPath.lastIndexOf('/') + 1)
+          
+console.log(formatlocation);
+            const arrlist = [{
+                title: "Trang chủ",
+                icon: "../img/icon/home.png", href: formatlocation === 'food.html'?'../index.html':'#'
+            }, {
+                title: "Món ăn",
+                icon: "../img/icon/category2.png", href:  formatlocation === "index.html"?'./food/food.html':'#'
+            }, {
+                title: "Nhân viên",
+                icon: "../img/icon/user.png", href: "#"
+            }, {
+                title: "Nguyên liệu",
+                icon: "../img/icon/category2.png", href: "#"
+            }, {
+                title: "Cài đặt chung",
+                icon: "../img/icon/setting2.png", href: "#"
+            }]
+            const header_main_between_ul = document.querySelector('.header_main_between ul')
+
+            const indexlocation = formatlocation === 'food.html' ? 1 : 0
+            console.log(indexlocation);
+            let html = ``
+            arrlist.map((item, index) => {
+                html += `<li class="${index === indexlocation ? 'active' : ''}">
+    <img src="${item.icon}" alt="">
+    <a href="${item.href}">${item.title}</a>
+</li>`
+            })
+            header_main_between_ul.innerHTML = html</script>
+
+    </div>
+    <div class="header_main_bottom">
+        <div class="header_main_bottom_contains">
+            <img src="../img/icon/logout.png" alt="">
+            <div>
+                Đăng xuất
+            </div>
+        </div>
+    </div>
+</div>

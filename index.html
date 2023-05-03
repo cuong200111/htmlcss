@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="./navbar/navbar.css">
+    <link rel="stylesheet" href="./header/header.css">
+    <link rel="stylesheet" href="./home.css">
+</head>
+
+<body>
+    <div style="width: 100%;height: 100vh;display: flex;">
+        <!-- navbar -->
+        <div include-html="../navbar/navbar.html" id="navbar_file"
+            style="width: 25%; height: 100%; border-right: 1px solid rgba(0, 0, 0, 0.282);">
+        </div>
+        <!-- header and container -->
+        <div  style="width:85%; height: 100%;position: relative;">
+
+            <div include-html="../header/header.html" id="header_file"
+                style=" width: 100%;height: 10%;border-bottom: 1px solid rgba(0, 0, 0, 0.282);">
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/include-html.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+.navbar_main {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar_main_left {}
+
+.navbar_main_right {
+
+    margin-right: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar_main_right div {
+    margin: 0 2%;
+
+}
+
+.search {
+    position: relative;
+    height: 100%;
+}
+
+.search_content {
+    height: 100%;
+    position: relative;
+}
+
+.search_content img {
+    position: absolute;
+    bottom: 30%;
+    left: 4%;
+    cursor: pointer;
+    width: 17px;
+}
+
+.search_content input {
+    height: 100%;
+
+    padding: 10px 10px 10px 30px;
+}
+
+.search_content input::placeholder {}
+
+.search_content input:focus {
+    outline: none;
+}
+
+.notifical {
+    margin-left: 5% !important; 
+    cursor: pointer;
+}
+
+.user {
+    cursor: pointer;
+}

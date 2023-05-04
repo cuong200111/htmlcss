@@ -67,7 +67,7 @@
     position: relative;
     width: 231px;
     background-color: white;
-    height: 219px;
+    height: 319px;
     z-index: 0;
     cursor: pointer;
     display: flex;
@@ -105,7 +105,17 @@
     line-height: 19px;
     background-color: #00933b73;
 }
+.descripts_food_container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.descripts_food_container2 span {
+font-size: 12px;
+margin-left: 5px;
+font-family: Arial, Helvetica, sans-serif;
 
+}
 .food_main_bottom_container_items img {
     width: 100%;
 
@@ -217,7 +227,7 @@
     z-index: 1000;
     top: 20%;
     width: 335px;
-    height: 521px;
+    height: 631px;
     left: 30%;
     opacity: 0;
     visibility: hidden;
@@ -238,8 +248,11 @@ outline: none;
     padding: 7px ;
 }
 .descripts{
-padding-bottom: 100px !important;
+padding-bottom: 50px !important;
 }
+.descripts2{
+    padding-bottom: 50px !important;
+    }
 .popup_add.active{
 opacity: 1;
 visibility: visible;
@@ -316,4 +329,20 @@ visibility: visible;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
 
+}
+.iconAdd{
+
+}
+.iconAdd{
+    opacity: 1;
+    position: relative;
+}
+.iconAdd::before{
+    position: absolute;
+    content: '';
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }

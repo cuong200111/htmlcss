@@ -10,27 +10,30 @@
         <script>
             const locationPath = window.location.pathname;
             const formatlocation = locationPath.slice(locationPath.lastIndexOf('/') + 1)
-          
-console.log(formatlocation);
+          console.log(formatlocation);
+
             const arrlist = [{
                 title: "Trang chủ",
-                icon: "../img/icon/home.png", href: formatlocation === 'food.html'?'../index.html':'#'
+                icon: "../img/icon/home.png", href: formatlocation === 'food.html'?'../index.html':formatlocation === 'ingredient.html'?'../index.html':formatlocation === 'employee.html'?'../index.html':'#'
             }, {
                 title: "Món ăn",
-                icon: "../img/icon/category2.png", href:  formatlocation === "index.html"?'./food/food.html':'#'
+                icon: "../img/icon/category2.png", href:  formatlocation === "index.html"?'./food/food.html':formatlocation === "ingredient.html"?'../food/food.html':
+                formatlocation === ""?'./food/food.html':formatlocation === "employee.html" ?'../food/food.html':'#'
             }, {
                 title: "Nhân viên",
-                icon: "../img/icon/user.png", href: "#"
+                icon: "../img/icon/user.png", href: formatlocation === "index.html"?'./employee/employee.html':formatlocation === "ingredient.html"?'../employee/employee.html':
+                formatlocation === ""?'./employee/employee.html':formatlocation === "food.html" ?'../employee/employee.html':'#'
             }, {
                 title: "Nguyên liệu",
-                icon: "../img/icon/category2.png", href: "#"
+                icon: "../img/icon/category2.png", href: formatlocation === "index.html"?'./ingredient/ingredient.html':
+                formatlocation === ""?'./ingredient/ingredient.html':formatlocation === "food.html"?'../ingredient/ingredient.html':formatlocation === "employee.html"?'../ingredient/ingredient.html':'#'
             }, {
                 title: "Cài đặt chung",
                 icon: "../img/icon/setting2.png", href: "#"
             }]
             const header_main_between_ul = document.querySelector('.header_main_between ul')
 
-            const indexlocation = formatlocation === 'food.html' ? 1 : 0
+            const indexlocation = formatlocation === 'food.html' ? 1 :formatlocation === 'ingredient.html' ? 3 :formatlocation === 'employee.html' ? 2 : 0
             console.log(indexlocation);
             let html = ``
             arrlist.map((item, index) => {
@@ -42,12 +45,18 @@ console.log(formatlocation);
             header_main_between_ul.innerHTML = html</script>
 
     </div>
-    <div class="header_main_bottom">
-        <div class="header_main_bottom_contains">
+    <div  class="header_main_bottom">
+        <div onclick="logout()" class="header_main_bottom_contains">
             <img src="../img/icon/logout.png" alt="">
-            <div>
+            <div >
                 Đăng xuất
             </div>
         </div>
     </div>
 </div>
+<script>
+    function logout() {
+       localStorage.setItem('online','' );
+       window.location.href = '/login/login.html'
+    }
+</script>

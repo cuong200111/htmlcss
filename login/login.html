@@ -95,7 +95,28 @@
         </div>
     </div>
 
+    <script>
+        const online = localStorage.getItem('online')?localStorage.getItem('online'):false
+        window.addEventListener('load', () => {
+            if (online) {
+                window.location.href = '/index.html'
+            } else {
+                
+            }
+        })
+        document.querySelector('.login_button').addEventListener('click', () => {
+            if(document.querySelector('.userInput').value === 'admin' && document.querySelector('.passInput').value ==='123'){
+                localStorage.setItem('online', true)
+                window.location.href = '/index.html'
+            }else{
+                window.location.reload()
+            }
 
+        })
+        
+        
+        
+        </script>
 </body>
 
 </html>

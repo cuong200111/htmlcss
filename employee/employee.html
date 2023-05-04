@@ -28,18 +28,20 @@
                 <div class="food_main_bottom_header">
                     <div class="food_main_bottom_header_left">
                         <div style="display: flex; justify-content: center;align-items: center;">
-                            <h1 style="position: relative;">Nhân viên<img onclick="handlePopupCategory()" style="cursor: pointer;" src="../img/icon/rowdown.png" alt="">
-                            <div class="popupCategory">
+                            <h1 style="position: relative;">Nhân viên<img onclick="handlePopupCategory()"
+                                    style="cursor: pointer;" src="../img/icon/rowdown.png" alt="">
+                                <div class="popupCategory">
 
-                            </div>
+                                </div>
                             </h1>
                         </div>
                         <div class="quantity">
 
                         </div>
                     </div>
-                 <span style="position: absolute;" class="notiDelete"></span>
-                    <button onclick="deleteHandlefood()" style="padding:10px 30px;position: absolute;left: 78%;top:3%" class="deleteHandlefood">Xóa</button>
+                    <span style="position: absolute;" class="notiDelete"></span>
+                    <button onclick="deleteHandlefood()" style="padding:10px 30px;position: absolute;left: 78%;top:3%"
+                        class="deleteHandlefood">Xóa</button>
                     <div class="food_main_bottom_header_right">
                         <div>
                             <img src="../img/icon/Filter.png" alt="">
@@ -109,51 +111,57 @@
                         <label for="">Tên nhân viên</label>
                     </div>
                     <div style="width: 80%;">
-                        <input class="nameFood" placeholder="Nhập họ tên" style="width:100%;padding: 5px;"
-                            type="text">
+                        <input class="nameFood" placeholder="Nhập họ tên" style="width:100%;padding: 5px;" type="text">
                     </div>
 
-              
+
                     <div style="align-self: start;margin-left: 8%;padding: 5px;">
                         <label for="">Nhâp mô tả</label>
                     </div>
                     <div style="width: 80%;">
                         <input class="descripts2" placeholder="Nhập mô tả" style="width:100%;padding: 5px;" type="text">
                     </div>
-                   
+
                     <div style="align-self: start;margin-left: 8%;padding: 5px;">
                         <label for="">Chức vụ</label>
                     </div>
-                    
+
                     <div style="width: 80%;">
                         <input class="employee_position" placeholder="Nhâp chức vụ" style="width:100%;padding: 5px;"
                             type="text">
                     </div>
-                        
-                    </div>
-                    <div style="width: 100%;display: flex;justify-content: center;margin-top: 25px; cursor: pointer;">
-                        <button
-                            style=" cursor: pointer;border-radius: 5px;margin:0 12px;border: none; padding: 10px 40px;background-color: #00933b47;">Hủy</button>
-                        <button onclick="addFood()"
-                            style="cursor: pointer;border-radius: 5px; margin:0 12px;border: none; padding: 10px 40px;background-color: #00933ba3;">thêm</button>
-                    </div>
+
+                </div>
+                <div style="width: 100%;display: flex;justify-content: center;margin-top: 25px; cursor: pointer;">
+                    <button
+                        style=" cursor: pointer;border-radius: 5px;margin:0 12px;border: none; padding: 10px 40px;background-color: #00933b47;">Hủy</button>
+                    <button onclick="addFood()"
+                        style="cursor: pointer;border-radius: 5px; margin:0 12px;border: none; padding: 10px 40px;background-color: #00933ba3;">thêm</button>
                 </div>
             </div>
-            <div class="popup_delete">
-
-            </div>
         </div>
+
+  
+
+        <div class="popup_add2">
+          
+        </div>
+    </div>
+    <div class="popup_delete">
+
+    </div>
+    </div>
     </div>
 
 
 
     <script>
-        localStorage.setItem('action',JSON.stringify({trash:false,add:false}))
-        const online = localStorage.getItem('online')?localStorage.getItem('online'):false
-        window.addEventListener('load', ()=>{
-            if(online){
-            
-            }else{
+        localStorage.setItem('action', JSON.stringify({ trash: false, add: false }))
+        const online = localStorage.getItem('online') ? localStorage.getItem('online') : false
+        window.addEventListener('load', () => {
+            if (online) {
+
+            } else {
                 window.location.href = 'login/login.html'
             }
         })

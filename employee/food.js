@@ -17,7 +17,7 @@ const changFile = () => {
 
 const addFood = () => {
 
-    const newData = { nameFood: nameFood.value, descripts2: descripts2.value, imgData: base64Data,employee_position:employee_position.value }
+    const newData = { nameFood: nameFood.value, descripts2: descripts2.value, imgData: base64Data, employee_position: employee_position.value }
     arrFoodData.push(newData)
     localStorage.setItem('employee', JSON.stringify(arrFoodData))
     setTimeout(() => {
@@ -47,14 +47,21 @@ arrFoodData.map((item, index) => {
     <div style="margin-left:20px">
     <span style="font-size:12px;font-family: Arial, Helvetica, sans-serif;">${item.employee_position}</span>
 </div>
-    <div class="title_food_container_employee">
-   <button>Xóa</button> <button>Sửa</button>
+    <div class="title_food_container_employee" style="padding-bottom:30px">
+   <button onclick="deleteempoly(${index})">Xóa</button> <button onclick="upEmployee(${index})">Sửa</button>
 </div>
 
     </div>`
 
 
 })
+const deleteempoly = (i)=>{
+   const fill = arrFoodData.filter((item,index)=>{
+        return index !== i
+    })
+    localStorage.setItem('employee',JSON.stringify(fill))
+    window.location.reload()
+}
 document.querySelectorAll('.checkRemove').forEach(item => {
     item.classList.remove('active')
     item.setAttribute('style', 'z-index:-1')
@@ -154,7 +161,7 @@ const handleCate = (i) => {
         <span style="font-size:12px;font-family: Arial, Helvetica, sans-serif;">${item.employee_position}</span>
     </div>
         <div class="title_food_container_employee">
-       <button onclick="deleteEmployee(${index})">Xóa</button> <button>Sửa</button>
+       <button >Xóa</button> <button class="upEmployee" onclick="upEmployee(${index})">Sửa</button>
     </div>
     
         </div>`
@@ -171,3 +178,83 @@ document.addEventListener('click', (e) => {
     }
 
 }, true)
+let fileFood2 = null
+let nameFood2 = null
+let descripts22 = null
+let employee_position2 = null
+let changfile2 = null
+let iUpdate = null
+let upEmployee = (i) => {
+    iUpdate=i
+    document.querySelector('.popup_add2').classList.add('active')
+    let updatehtml = `  <div class="popup_add_header">
+    <h1>Sửa</h1>
+</div>
+<div class="popup_add_container">
+    <input onchange="changFile2()" class="fileFood2" style="padding: 5% 0; cursor: pointer;" type="file">
+
+    <div style="align-self: start;margin-left: 8%;padding: 5px;">
+        <label for="">Tên nhân viên</label>
+    </div>
+    <div style="width: 80%;">
+        <input value="${arrFoodData[i].nameFood}" class="nameFood2" placeholder="Nhập họ tên" style="width:100%;padding: 5px;" type="text">
+    </div>
+
+
+    <div style="align-self: start;margin-left: 8%;padding: 5px;">
+        <label for="">Nhâp mô tả</label>
+    </div>
+    <div style="width: 80%;">
+        <input class="descripts22" placeholder="Nhập mô tả" style="width:100%;padding: 5px;" type="text">
+    </div>
+
+    <div style="align-self: start;margin-left: 8%;padding: 5px;">
+        <label for="">Chức vụ</label>
+    </div>
+
+    <div style="width: 80%;">
+        <input value="${arrFoodData[i].employee_position}" class="employee_position2" placeholder="Nhâp chức vụ" style="width:100%;padding: 5px;"
+            type="text">
+    </div>
+
+</div>
+<div style="width: 100%;display: flex;justify-content: center;margin-top: 25px; cursor: pointer;">
+    <button
+        style=" cursor: pointer;border-radius: 5px;margin:0 12px;border: none; padding: 10px 40px;background-color: #00933b47;">Hủy</button>
+    <button onclick="UpdateFood()"
+        style="cursor: pointer;border-radius: 5px; margin:0 12px;border: none; padding: 10px 40px;background-color: #00933ba3;">Sửa</button>
+</div>`
+    document.querySelector('.popup_add2').innerHTML = updatehtml
+
+    nameFood2 = document.querySelector('.nameFood2')
+    descripts22 = document.querySelector('.descripts22')
+    employee_position2 = document.querySelector('.employee_position2')
+  
+}
+const changFile2 = ()=>{
+    const reader = new FileReader()
+    reader.onload = (e) => {
+            const base64 = window.btoa(e.target.result)
+            fileFood2=base64
+    }
+    reader.readAsBinaryString(document.querySelector('.fileFood2').files[0])
+}
+const UpdateFood = () => {
+const indexz = iUpdate
+console.log(indexz);
+arrFoodData.forEach((item,index)=>{
+    console.log(indexz === index);
+    if(indexz === index){
+        item.nameFood =nameFood2.value
+        item.employee_position = employee_position2.value
+    }
+    localStorage.setItem('employee',JSON.stringify(arrFoodData))
+    window.location.reload()
+})
+console.log(arrFoodData);
+}
+document.addEventListener('click',(e)=>{
+    if(document.querySelector('.popup_add2') && !document.querySelector('.popup_add2').contains(e.target)){
+        document.querySelector('.popup_add2').classList.remove('active')
+    }
+},true)

@@ -46,6 +46,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 5% 0px;
+    height: 70vh;
     overflow-y: scroll;
 }
 
@@ -230,7 +231,7 @@ justify-content: space-between;
     z-index: 1000;
     top: 20%;
     width: 335px;
-    height: 401px;
+    height: 520px;
     left: 30%;
     opacity: 0;
     visibility: hidden;
@@ -311,9 +312,9 @@ justify-content: space-between;
     opacity: 1;
 }
 
-.notiDelete {
+/* .notiDelete {
     background-color: green;
-    left: 50%;
+    left: 30%;
     padding: 10px;
     border-radius: 10px;
     color: white;
@@ -328,7 +329,7 @@ justify-content: space-between;
     visibility: visible;
     top: 3%;
     animation: anime backwards 0.5s;
-}
+} */
 
 @keyframes anime {
     0% {
@@ -392,3 +393,77 @@ justify-content: space-between;
     border-radius: 4px;
     color: white;
 }
+
+
+
+/* input upload */
+
+.container {
+    height: 150px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    gap: 5px;
+    background-color: rgba(76, 170, 96, 0.041);
+  }
+  
+  .header {
+    flex: 1;
+    width: 50%;
+    border: 2px dashed rgb(65, 225, 81);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .header svg {
+    height: 50px;
+  }
+  
+  .header p {
+    text-align: center;
+    color: black;
+  }
+  
+  .footer {
+    background-color: rgba(0, 255, 38, 0.172);
+    width: 100%;
+    height: 40px;
+    padding: 0px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: black;
+    border: none;
+  }
+  
+  .footer svg {
+    height: 80%;
+    fill: rgba(56, 166, 98, 0.66);
+    background-color: rgba(70, 66, 66, 0.103);
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+  }
+  
+  .footer p {
+    flex: 1;
+    text-align: center;
+  }
+  
+  #file {
+    display: none;
+  }
+  .textInputImg{
+    font-size: 14px;
+  }

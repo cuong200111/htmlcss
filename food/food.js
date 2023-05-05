@@ -6,7 +6,13 @@ const descripts = document.querySelector('.descripts')
 const categoryFood = document.querySelector('.categoryFood')
 let base64Data = ``
 let arrFoodData = JSON.parse(localStorage.getItem('foodData')) ? JSON.parse(localStorage.getItem('foodData')) : []
-const changFile = () => {
+const textInputImg = document.querySelector('.textInputImg')
+
+const changFile = (e) => {
+    
+    const va = e.files[0].name
+ 
+    textInputImg.innerHTML = `<span>${va}</span>`
     const reader = new FileReader()
     reader.onload = (e) => {
         const base64 = window.btoa(e.target.result)
@@ -14,13 +20,24 @@ const changFile = () => {
     }
     reader.readAsBinaryString(fileFood.files[0])
 }
-const addFood = () => {
+const clearInput = ()=>{
+    textInputImg.innerHTML = `Not selected file`
+}
+const addFood = () => {  
+      let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+<div style="display:flex;justify-content: center;align-items: center;">
+    <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+    <span style="color:white;margin-left:5px">Đã thêm 1 món ăn</span>
+</div>
+<span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+</div>`
+document.querySelector('.ptop').innerHTML=g
     const newData = { nameFood: nameFood.value, descripts: descripts.value, categoryFood: categoryFood.value, date: new Date().getTime(), imgData: base64Data }
     arrFoodData.push(newData)
     localStorage.setItem('foodData', JSON.stringify(arrFoodData))
     setTimeout(() => {
         window.location.reload()
-    }, 1000)
+    }, 2000)
 }
 let htmlfood = ``
 const quantity = document.querySelector('.quantity')
@@ -59,10 +76,10 @@ arrFoodData.map((item, index) => {
         <!-- <img  style="z-index: 1000;;width: 25px;margin-right: 5px;" src="../img/icon/lovely.png" alt=""> -->
     </div>
     <div class="descripts_food_container">
-        <span>Đồ ăn chính </span><span>Sản phẩm từ cơm </span>
+        <span>${item.categoryFood} </span>
     </div>
     </div>`
-
+{/* <span>Sản phẩm từ cơm </span> */}
 
 })
 food_main_bottom_container_items.innerHTML = htmlfood
@@ -78,15 +95,19 @@ document.addEventListener('click', (e) => {
         document.querySelector('.bg_food').classList.remove('active')
     }
 }, true)
+
 let arrDelete = []
 const handleDelete = (e, i) => {
-    e.classList.add('active')
-    arrDelete.push(i)
+    const trash = JSON.parse(localStorage.getItem('action'))
+    if (trash.trash) {
+        e.classList.add('active')
+        arrDelete.push(i)
+    }
 
 }
 const handleDeleteicon = () => {
     document.querySelector('.deleteHandlefood').classList.toggle('active')
-
+    localStorage.setItem('action',JSON.stringify({trash:true,add:false}))   
     document.querySelectorAll('.checkRemove').forEach(item => {
         if (document.querySelector('.deleteHandlefood.active')) {
             item.setAttribute('style', 'z-index:1000')
@@ -105,7 +126,15 @@ const handleDeleteicon = () => {
 }
 
 const deleteHandlefood = () => {
-    document.querySelector('.notiDelete').innerHTML = `<h1>Đã xóa thành công ${arrDelete.length} sản phẩm</h1>`
+
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} món ăn</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
     document.querySelector('.notiDelete').classList.add('active')
 
     const newArr = arrFoodData.filter((item, index) => {
@@ -124,7 +153,7 @@ const fillArr = arrFoodData.filter((item, index) => {
     })
     return i === index
 })
-let htmlzz = `<div onclick="handleCate(-1)">default</div>`
+let htmlzz = `<div onclick="handleCate(-1)">Tổng quan</div>`
 console.log(fillArr);
 fillArr.map((item, index) => {
     htmlzz += `<div onclick="handleCate(${index})">${item.categoryFood}</div>`
@@ -182,7 +211,7 @@ const handleCate = (i) => {
         <!-- <img  style="z-index: 1000;;width: 25px;margin-right: 5px;" src="../img/icon/lovely.png" alt=""> -->
     </div>
     <div class="descripts_food_container">
-        <span>Đồ ăn chính </span><span>Sản phẩm từ cơm </span>
+        <span>${item.categoryFood}</span>
     </div>
     </div>`
     })
@@ -197,3 +226,7 @@ document.addEventListener('click', (e) => {
     }
 
 }, true)
+const handlehide = ()=>{
+    document.querySelector('.popup_add').classList.remove('active')
+    document.querySelector('.bg_food').classList.remove('active')
+}

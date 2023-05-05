@@ -234,8 +234,11 @@
     color: rgb(255, 255, 255);
     border-radius: 5px;
     transition: 0.4s;
+    transition: 0.3s;
 }
-
+.login_button.active{
+    background-color: #00933B;
+}
 /* .login_button:hover {
     background-color: #a6efa0;
 } */

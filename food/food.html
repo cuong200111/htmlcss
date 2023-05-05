@@ -28,7 +28,7 @@
                 <div class="food_main_bottom_header">
                     <div class="food_main_bottom_header_left">
                         <div style="display: flex; justify-content: center;align-items: center;">
-                            <h1 style="position: relative;">Món ăn <img onclick="handlePopupCategory()" style="cursor: pointer;" src="../img/icon/rowdown.png" alt="">
+                            <h1 style="position: relative;font-family: Arial, Helvetica, sans-serif;">Món ăn <img onclick="handlePopupCategory()" style="cursor: pointer;" src="../img/icon/rowdown.png" alt="">
                             <div class="popupCategory">
 
                             </div>
@@ -100,11 +100,23 @@
             </div>
             <div class="popup_add">
                 <div class="popup_add_header">
-                    <h1>Thêm món ăn</h1>
+                   <div  style=" border-bottom: 1px solid rgba(0, 0, 0, 0.158); display: flex;justify-content: flex-start;align-items: center;padding-left: 22px;"> <img onclick="handlehide()" style="cursor: pointer;margin-right: 5px;" src="../img/icon/arrowleft.png" /><h1 style="text-align: center;padding: 12px 0; font-size: 22px;font-family: Arial, Helvetica, sans-serif;">Thêm món ăn</h1></div>
                 </div>
-                <div class="popup_add_container">
-                    <input onchange="changFile()" class="fileFood" style="padding: 5% 0; cursor: pointer;" type="file">
-
+                <div style="margin-top: 10px;" class="popup_add_container">
+                    <!-- <input onchange="changFile()" class="fileFood" style="padding: 5% 0; cursor: pointer;" type="file"> -->
+                    <div class="container"> 
+                        <div class="header"> 
+                            <img onclick="clearInput()" src="../img/icon/Icon.png" style=" width:32px;;position: absolute;left: 69%;top: 17%;cursor: pointer;"/>
+                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> 
+                            <path d="M7 10V9C7 6.23858 9.23858 4 12 4C14.7614 4 17 6.23858 17 9V10C19.2091 10 21 11.7909 21 14C21 15.4806 20.1956 16.8084 19 17.5M7 10C4.79086 10 3 11.7909 3 14C3 15.4806 3.8044 16.8084 5 17.5M7 10C7.43285 10 7.84965 10.0688 8.24006 10.1959M12 12V21M12 12L15 15M12 12L9 15" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> <p></p>
+                        </div> 
+                        <label style="position: relative;" for="file" class="footer"> 
+                            <svg style="top:-150%;left: 0;position: absolute;"fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M15.331 6H8.5v20h15V14.154h-8.169z"></path><path d="M18.153 6h-.009v5.342H23.5v-.002z"></path></g></svg> 
+                          <p class="textInputImg">Not selected file</p> 
+                         
+                        </label> 
+                        <input  onchange="changFile(this)" class="fileFood" id="file" type="file"> 
+                      </div>
                     <div style="align-self: start;margin-left: 8%;padding: 5px;">
                         <label for="">Tên món ăn</label>
                     </div>
@@ -127,7 +139,7 @@
                             type="text">
                     </div>
                     <div style="width: 80%;display: flex;justify-content: center;margin-top: 100px; cursor: pointer;">
-                        <button
+                        <button onclick="handlehide()"
                             style=" cursor: pointer;border-radius: 5px;margin:0 12px;border: none; padding: 10px 40px;background-color: #00933b47;">Hủy</button>
                         <button onclick="addFood()"
                             style="cursor: pointer;border-radius: 5px; margin:0 12px;border: none; padding: 10px 40px;background-color: #00933ba3;">thêm</button>
@@ -136,6 +148,9 @@
             </div>
             <div class="popup_delete">
 
+            </div>
+            <div class="ptop">
+        
             </div>
         </div>
     </div>

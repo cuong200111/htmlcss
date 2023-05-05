@@ -39,7 +39,7 @@
             arrlist.map((item, index) => {
                 html += `<li class="${index === indexlocation ? 'active' : ''}">
     <img src="${item.icon}" alt="">
-    <a href="${item.href}">${item.title}</a>
+    <a style="color:${index === indexlocation?'white':'black'}" href="${item.href}">${item.title}</a>
 </li>`
             })
             header_main_between_ul.innerHTML = html</script>

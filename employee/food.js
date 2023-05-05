@@ -5,7 +5,13 @@ const employee_position = document.querySelector('.employee_position')
 let base64Data = ``
 let arrFoodData = JSON.parse(localStorage.getItem('employee')) ? JSON.parse(localStorage.getItem('employee')) : []
 
-const changFile = () => {
+const textInputImg = document.querySelector('.textInputImg')
+
+const changFile = (e) => {
+    
+    const va = e.files[0].name
+ 
+    textInputImg.innerHTML = `<span>${va}</span>`
     const reader = new FileReader()
     reader.onload = (e) => {
         const base64 = window.btoa(e.target.result)
@@ -13,16 +19,27 @@ const changFile = () => {
     }
     reader.readAsBinaryString(fileFood.files[0])
 }
+const clearInput = ()=>{
+    textInputImg.innerHTML = `Not selected file`
+}
 
 
 const addFood = () => {
-
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 82%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Đã thêm 1 nhân viên</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
     const newData = { nameFood: nameFood.value, descripts2: descripts2.value, imgData: base64Data, employee_position: employee_position.value }
     arrFoodData.push(newData)
     localStorage.setItem('employee', JSON.stringify(arrFoodData))
+    
     setTimeout(() => {
         window.location.reload()
-    }, 1000)
+    }, 2000)
 
 }
 
@@ -55,12 +72,22 @@ arrFoodData.map((item, index) => {
 
 
 })
-const deleteempoly = (i)=>{
-   const fill = arrFoodData.filter((item,index)=>{
+const deleteempoly = (i) => {
+    const fill = arrFoodData.filter((item, index) => {
         return index !== i
     })
-    localStorage.setItem('employee',JSON.stringify(fill))
-    window.location.reload()
+    localStorage.setItem('employee', JSON.stringify(fill))
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 82%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Xóa thành công 1 nhân viên</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
+    setTimeout(() => {
+        window.location.reload()
+    }, 2000)
 }
 document.querySelectorAll('.checkRemove').forEach(item => {
     item.classList.remove('active')
@@ -79,15 +106,20 @@ document.addEventListener('click', (e) => {
         document.querySelector('.bg_food').classList.remove('active')
     }
 }, true)
+
+
 let arrDelete = []
 const handleDelete = (e, i) => {
-    e.classList.add('active')
-    arrDelete.push(i)
+    const trash = JSON.parse(localStorage.getItem('action'))
+    if (trash.trash) {
+        e.classList.add('active')
+        arrDelete.push(i)
+    }
 
 }
 const handleDeleteicon = () => {
     document.querySelector('.deleteHandlefood').classList.toggle('active')
-
+    localStorage.setItem('action', JSON.stringify({ trash: true, add: false }))
     document.querySelectorAll('.checkRemove').forEach(item => {
         if (document.querySelector('.deleteHandlefood.active')) {
             item.setAttribute('style', 'z-index:1000')
@@ -106,7 +138,14 @@ const handleDeleteicon = () => {
 }
 
 const deleteHandlefood = () => {
-    document.querySelector('.notiDelete').innerHTML = `<h1>Đã xóa thành công ${arrDelete.length} nhân viên</h1>`
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} nhân viên</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
     document.querySelector('.notiDelete').classList.add('active')
 
     const newArr = arrFoodData.filter((item, index) => {
@@ -185,13 +224,13 @@ let employee_position2 = null
 let changfile2 = null
 let iUpdate = null
 let upEmployee = (i) => {
-    iUpdate=i
+    iUpdate = i
     document.querySelector('.popup_add2').classList.add('active')
     let updatehtml = `  <div class="popup_add_header">
-    <h1>Sửa</h1>
+    <h1 style="text-align:center">Sửa</h1>
 </div>
 <div class="popup_add_container">
-    <input onchange="changFile2()" class="fileFood2" style="padding: 5% 0; cursor: pointer;" type="file">
+<img style="border-radius:90px;width:100px;height:100px" src="data:image/png;base64,${arrFoodData[i].imgData}" alt="">
 
     <div style="align-self: start;margin-left: 8%;padding: 5px;">
         <label for="">Tên nhân viên</label>
@@ -229,32 +268,36 @@ let upEmployee = (i) => {
     nameFood2 = document.querySelector('.nameFood2')
     descripts22 = document.querySelector('.descripts22')
     employee_position2 = document.querySelector('.employee_position2')
-  
+
 }
-const changFile2 = ()=>{
+const changFile2 = () => {
     const reader = new FileReader()
     reader.onload = (e) => {
-            const base64 = window.btoa(e.target.result)
-            fileFood2=base64
+        const base64 = window.btoa(e.target.result)
+        fileFood2 = base64
     }
     reader.readAsBinaryString(document.querySelector('.fileFood2').files[0])
 }
 const UpdateFood = () => {
-const indexz = iUpdate
-console.log(indexz);
-arrFoodData.forEach((item,index)=>{
-    console.log(indexz === index);
-    if(indexz === index){
-        item.nameFood =nameFood2.value
-        item.employee_position = employee_position2.value
-    }
-    localStorage.setItem('employee',JSON.stringify(arrFoodData))
-    window.location.reload()
-})
-console.log(arrFoodData);
+    const indexz = iUpdate
+    console.log(indexz);
+    arrFoodData.forEach((item, index) => {
+        console.log(indexz === index);
+        if (indexz === index) {
+            item.nameFood = nameFood2.value
+            item.employee_position = employee_position2.value
+        }
+        localStorage.setItem('employee', JSON.stringify(arrFoodData))
+        window.location.reload()
+    })
+    console.log(arrFoodData);
 }
-document.addEventListener('click',(e)=>{
-    if(document.querySelector('.popup_add2') && !document.querySelector('.popup_add2').contains(e.target)){
+document.addEventListener('click', (e) => {
+    if (document.querySelector('.popup_add2') && !document.querySelector('.popup_add2').contains(e.target)) {
         document.querySelector('.popup_add2').classList.remove('active')
     }
-},true)
+}, true)
+const handlehide = ()=>{
+    document.querySelector('.popup_add').classList.remove('active')
+    document.querySelector('.bg_food').classList.remove('active')
+}

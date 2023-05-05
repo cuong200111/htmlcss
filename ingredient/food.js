@@ -10,7 +10,13 @@ const descripts2 = document.querySelector('.descripts2')
 const quatity = document.querySelector('.quatity')
 let base64Data = ``
 let arrFoodData = JSON.parse(localStorage.getItem('ingredient')) ? JSON.parse(localStorage.getItem('ingredient')) : []
-const changFile = () => {
+const textInputImg = document.querySelector('.textInputImg')
+
+const changFile = (e) => {
+    
+    const va = e.files[0].name
+ 
+    textInputImg.innerHTML = `<span>${va}</span>`
     const reader = new FileReader()
     reader.onload = (e) => {
         const base64 = window.btoa(e.target.result)
@@ -18,10 +24,19 @@ const changFile = () => {
     }
     reader.readAsBinaryString(fileFood.files[0])
 }
-
+const clearInput = ()=>{
+    textInputImg.innerHTML = `Not selected file`
+}
 
 const addFood = () => {
-
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Thêm thành công 1 nguyên liệu</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
     const day = new Date(time.value).getDay()
     const month = new Date(time.value).getMonth() + 1
     const year = new Date(time.value).getFullYear()
@@ -93,10 +108,30 @@ arrFoodData.map((item, index) => {
     <div class="descripts_food_container">
         <span>Hàng chính hãng</span><span>Đồ chất lượng cao</span>
     </div>
+    <div class="title_food_container_employee" style="padding-bottom:30px">
+    <button onclick="deleteempoly(${index})">Xóa</button> <button onclick="upEmployee(${index})">Sửa</button>
+ </div>
     </div>`
 
 
 })
+const deleteempoly = (i)=>{
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Xóa thành công 1 nguyên liệu</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
+    const fill = arrFoodData.filter((item,index)=>{
+        return index !== i
+    })
+    localStorage.setItem('ingredient',JSON.stringify(fill))
+    setTimeout(() => {
+        window.location.reload()
+    }, 2000)
+}
 food_main_bottom_container_items.innerHTML = htmlfood
 
 const handleAdd = () => {
@@ -110,15 +145,19 @@ document.addEventListener('click', (e) => {
         document.querySelector('.bg_food').classList.remove('active')
     }
 }, true)
+
 let arrDelete = []
 const handleDelete = (e, i) => {
-    e.classList.add('active')
-    arrDelete.push(i)
+    const trash = JSON.parse(localStorage.getItem('action'))
+    if (trash.trash) {
+        e.classList.add('active')
+        arrDelete.push(i)
+    }
 
 }
 const handleDeleteicon = () => {
     document.querySelector('.deleteHandlefood').classList.toggle('active')
-
+    localStorage.setItem('action',JSON.stringify({trash:true,add:false}))   
     document.querySelectorAll('.checkRemove').forEach(item => {
         if (document.querySelector('.deleteHandlefood.active')) {
             item.setAttribute('style', 'z-index:1000')
@@ -137,7 +176,14 @@ const handleDeleteicon = () => {
 }
 
 const deleteHandlefood = () => {
-    document.querySelector('.notiDelete').innerHTML = `<h1>Đã xóa thành công ${arrDelete.length} sản phẩm</h1>`
+    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    <div style="display:flex;justify-content: center;align-items: center;">
+        <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
+        <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} nguyên liệu</span>
+    </div>
+    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    </div>`
+    document.querySelector('.ptop').innerHTML=g
     document.querySelector('.notiDelete').classList.add('active')
 
     const newArr = arrFoodData.filter((item, index) => {
@@ -230,7 +276,7 @@ const handleCate = (i) => {
             <span>Hàng chính hãng</span><span>Đồ chất lượng cao</span>
         </div>
         </div>`
-    
+
     })
 
 
@@ -243,3 +289,123 @@ document.addEventListener('click', (e) => {
     }
 
 }, true)
+
+
+
+let nameFood2 = null
+let descripts22 = null
+let categoryFood2 = null
+let address2 = null
+let time2 = null
+let descripts222 = null
+let quatity2 = null
+let ins = null
+const upEmployee = (i) => {
+    ins = i
+    let ht = `   <div class="popup_add_header">
+<h1>Chi tiết thực phẩm</h1>
+</div>
+<div class="popup_add_container">
+<img src="data:image/png;base64,${arrFoodData[i].imgData}" />
+
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Tên Nguyên liệu</label>
+</div>
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].nameFood}" class="nameFood2" placeholder="Tên Nguyên liệu" style="width:100%;padding: 5px;"
+        type="text">
+</div>
+
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp mô tả</label>
+</div>
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].descripts}" class="descripts22" placeholder="Nhập mô tả" style="width:100%;padding: 5px;" type="text">
+</div>
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp Category</label>
+</div>
+
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].categoryFood}" class="categoryFood2" placeholder="Nhâp Category" style="width:100%;padding: 5px;"
+        type="text">
+</div>
+
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp thời gian</label>
+</div>
+
+<div style="width: 80%;">
+    <input  class="time2" placeholder="Nhâp thời gian" style="width:100%;padding: 5px;"
+        type="date">
+</div>
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp Địa chỉ</label>
+</div>
+
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].nameFood}" class="address2" placeholder="Nhâp Địa chỉ" style="width:100%;padding: 5px;"
+        type="text">
+</div>
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp chất lượng</label>
+</div>
+
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].quatity}" class="quatity2" placeholder="Nhâp chất lượng" style="width:100%;padding: 5px;"
+        type="text">
+</div>
+<div style="align-self: start;margin-left: 8%;padding: 5px;">
+    <label for="">Nhâp mô tả</label>
+</div>
+<div style="width: 80%;">
+    <input value="${arrFoodData[i].descripts2}" class="descripts222" placeholder="Nhập mô tả" style="width:100%;padding: 5px;" type="text">
+</div>
+<div style="width: 80%;display: flex;justify-content: center;margin-top: 10px; cursor: pointer;">
+    <button onclick="destroy()"
+        style=" cursor: pointer;border-radius: 5px;margin:0 12px;border: none; padding: 10px 40px;background-color: #00933b47;">Hủy</button>
+    <button onclick="upingredient()"
+        style="cursor: pointer;border-radius: 5px; margin:0 12px;border: none; padding: 10px 40px;background-color: #00933ba3;">Sửa</button>
+</div>
+</div>`
+
+
+    document.querySelector('.popup_add2').classList.add('active');
+    document.querySelector('.popup_add2').innerHTML = ht
+    nameFood2 = document.querySelector('.nameFood2')
+    descripts22 = document.querySelector('.descripts22')
+    categoryFood2 = document.querySelector('.categoryFood2')
+    address2 = document.querySelector('.address2')
+    time2 = document.querySelector('.time2')
+    descripts222 = document.querySelector('.descripts222')
+    quatity2 = document.querySelector('.quatity2')
+}
+const destroy = ()=>{
+    document.querySelector('.popup_add2').classList.remove('active')
+}
+const upingredient = () => {
+    arrFoodData.forEach((item, index) => {
+        if (ins === index) {
+            item.quatity = quatity2.value
+            item.nameFood = nameFood2.value
+            item.descripts2 = descripts222.value
+            item.descripts = descripts22.value
+            item.categoryFood = categoryFood2.value
+            item.address = address2.value
+
+        }
+    })
+    localStorage.setItem('ingredient', JSON.stringify(arrFoodData))
+    window.location.reload()
+}
+document.addEventListener('click', (e) => {
+    if (document.querySelector('.popup_add2') && !document.querySelector('.popup_add2').contains(e.target)) {
+        document.querySelector('.popup_add2').classList.remove('active')
+    }
+}, true)
+
+
+const handlehide = ()=>{
+    document.querySelector('.popup_add').classList.remove('active')
+    document.querySelector('.bg_food').classList.remove('active')
+}

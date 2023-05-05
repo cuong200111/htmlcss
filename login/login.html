@@ -73,7 +73,7 @@
 
 
                     <div class="checks">
-                        <div class="container">
+                        <div onclick="notei()" class="container">
                             <input type="checkbox" id="cbx2" style="display: none;">
                             <label for="cbx2" class="check">
                                 <svg width="18px" height="18px" viewBox="0 0 18 18">
@@ -84,7 +84,7 @@
                                 </svg>
                             </label>
                         </div>
-                        <span>Ghi nhớ mật khẩu</span>
+                        <span >Ghi nhớ mật khẩu</span>
                     </div>
                     <button class="login_button">
                         Đăng nhập
@@ -96,6 +96,16 @@
     </div>
 
     <script>
+      
+        const notei =()=>{
+            const cbx = document.getElementById('cbx2')
+            if(cbx.checked === true){
+                document.querySelector('.login_button').classList.add('active')
+            }else{
+                document.querySelector('.login_button').classList.remove('active')
+            }
+  
+        }
         const online = localStorage.getItem('online')?localStorage.getItem('online'):false
         window.addEventListener('load', () => {
             if (online) {

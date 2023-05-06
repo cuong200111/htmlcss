@@ -9,9 +9,9 @@ let arrFoodData = JSON.parse(localStorage.getItem('foodData')) ? JSON.parse(loca
 const textInputImg = document.querySelector('.textInputImg')
 
 const changFile = (e) => {
-    
+
     const va = e.files[0].name
- 
+
     textInputImg.innerHTML = `<span>${va}</span>`
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -20,25 +20,30 @@ const changFile = (e) => {
     }
     reader.readAsBinaryString(fileFood.files[0])
 }
-const clearInput = ()=>{
+const clearInput = () => {
     textInputImg.innerHTML = `Not selected file`
 }
-const addFood = () => {  
-      let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+
+const undoData = () => {
+    window.location.reload()
+}
+const addFood = () => {
+    let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
 <div style="display:flex;justify-content: center;align-items: center;">
     <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
     <span style="color:white;margin-left:5px">Đã thêm 1 món ăn</span>
 </div>
-<span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+<span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
 </div>`
-document.querySelector('.ptop').innerHTML=g
+    document.querySelector('.ptop').innerHTML = g
     const newData = { nameFood: nameFood.value, descripts: descripts.value, categoryFood: categoryFood.value, date: new Date().getTime(), imgData: base64Data }
     arrFoodData.push(newData)
-    localStorage.setItem('foodData', JSON.stringify(arrFoodData))
     setTimeout(() => {
+        localStorage.setItem('foodData', JSON.stringify(arrFoodData))
         window.location.reload()
     }, 2000)
 }
+
 let htmlfood = ``
 const quantity = document.querySelector('.quantity')
 quantity.innerHTML = `<span>${arrFoodData.length} món</span>`
@@ -79,7 +84,7 @@ arrFoodData.map((item, index) => {
         <span>${item.categoryFood} </span>
     </div>
     </div>`
-{/* <span>Sản phẩm từ cơm </span> */}
+    {/* <span>Sản phẩm từ cơm </span> */ }
 
 })
 food_main_bottom_container_items.innerHTML = htmlfood
@@ -107,7 +112,7 @@ const handleDelete = (e, i) => {
 }
 const handleDeleteicon = () => {
     document.querySelector('.deleteHandlefood').classList.toggle('active')
-    localStorage.setItem('action',JSON.stringify({trash:true,add:false}))   
+    localStorage.setItem('action', JSON.stringify({ trash: true, add: false }))
     document.querySelectorAll('.checkRemove').forEach(item => {
         if (document.querySelector('.deleteHandlefood.active')) {
             item.setAttribute('style', 'z-index:1000')
@@ -127,21 +132,22 @@ const handleDeleteicon = () => {
 
 const deleteHandlefood = () => {
 
-    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
         <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} món ăn</span>
     </div>
-    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
     </div>`
-    document.querySelector('.ptop').innerHTML=g
+    document.querySelector('.ptop').innerHTML = g
     document.querySelector('.notiDelete').classList.add('active')
 
     const newArr = arrFoodData.filter((item, index) => {
         return !arrDelete.includes(index)
     })
-    localStorage.setItem('foodData', JSON.stringify(newArr))
+   
     setTimeout(() => {
+        localStorage.setItem('foodData', JSON.stringify(newArr))
         window.location.reload()
     }, 2000)
 }
@@ -226,7 +232,7 @@ document.addEventListener('click', (e) => {
     }
 
 }, true)
-const handlehide = ()=>{
+const handlehide = () => {
     document.querySelector('.popup_add').classList.remove('active')
     document.querySelector('.bg_food').classList.remove('active')
 }

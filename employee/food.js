@@ -23,21 +23,25 @@ const clearInput = ()=>{
     textInputImg.innerHTML = `Not selected file`
 }
 
-
+const undoData = () => {
+    window.location.reload()
+}
 const addFood = () => {
     let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 82%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
         <span style="color:white;margin-left:5px">Đã thêm 1 nhân viên</span>
     </div>
-    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
     </div>`
     document.querySelector('.ptop').innerHTML=g
     const newData = { nameFood: nameFood.value, descripts2: descripts2.value, imgData: base64Data, employee_position: employee_position.value }
-    arrFoodData.push(newData)
-    localStorage.setItem('employee', JSON.stringify(arrFoodData))
+ 
     
     setTimeout(() => {
+        arrFoodData.push(newData)
+  
+        localStorage.setItem('employee', JSON.stringify(arrFoodData))
         window.location.reload()
     }, 2000)
 
@@ -76,16 +80,17 @@ const deleteempoly = (i) => {
     const fill = arrFoodData.filter((item, index) => {
         return index !== i
     })
-    localStorage.setItem('employee', JSON.stringify(fill))
+  
     let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 82%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
         <span style="color:white;margin-left:5px">Xóa thành công 1 nhân viên</span>
     </div>
-    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
     </div>`
     document.querySelector('.ptop').innerHTML=g
     setTimeout(() => {
+        localStorage.setItem('employee', JSON.stringify(fill))
         window.location.reload()
     }, 2000)
 }
@@ -143,7 +148,7 @@ const deleteHandlefood = () => {
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
         <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} nhân viên</span>
     </div>
-    <span style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
     </div>`
     document.querySelector('.ptop').innerHTML=g
     document.querySelector('.notiDelete').classList.add('active')
@@ -151,8 +156,9 @@ const deleteHandlefood = () => {
     const newArr = arrFoodData.filter((item, index) => {
         return !arrDelete.includes(index)
     })
-    localStorage.setItem('employee', JSON.stringify(newArr))
+   
     setTimeout(() => {
+        localStorage.setItem('employee', JSON.stringify(newArr))
         window.location.reload()
     }, 2000)
 }

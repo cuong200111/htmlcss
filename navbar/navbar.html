@@ -6,16 +6,16 @@
         <ul>
             <!-- Thêm qua vòng lặp -->
         </ul>
-
+        <!-- {
+            title: "Trang chủ",
+            icon: "../img/icon/home.png", href: formatlocation === 'food.html'?'../index.html':formatlocation === 'ingredient.html'?'../index.html':formatlocation === 'employee.html'?'../index.html':'#'
+        }, -->
         <script>
             const locationPath = window.location.pathname;
             const formatlocation = locationPath.slice(locationPath.lastIndexOf('/') + 1)
           console.log(formatlocation);
 
-            const arrlist = [{
-                title: "Trang chủ",
-                icon: "../img/icon/home.png", href: formatlocation === 'food.html'?'../index.html':formatlocation === 'ingredient.html'?'../index.html':formatlocation === 'employee.html'?'../index.html':'#'
-            }, {
+            const arrlist = [ {
                 title: "Món ăn",
                 icon: "../img/icon/category2.png", href:  formatlocation === "index.html"?'./food/food.html':formatlocation === "ingredient.html"?'../food/food.html':
                 formatlocation === ""?'./food/food.html':formatlocation === "employee.html" ?'../food/food.html':'#'
@@ -33,7 +33,7 @@
             }]
             const header_main_between_ul = document.querySelector('.header_main_between ul')
 
-            const indexlocation = formatlocation === 'food.html' ? 1 :formatlocation === 'ingredient.html' ? 3 :formatlocation === 'employee.html' ? 2 : 0
+            const indexlocation = formatlocation === 'food.html' ? 0 :formatlocation === 'ingredient.html' ? 2:formatlocation === 'employee.html' ? 1 : 0
             console.log(indexlocation);
             let html = ``
             arrlist.map((item, index) => {

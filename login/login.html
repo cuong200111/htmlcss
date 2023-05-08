@@ -31,7 +31,16 @@
                     <span>Vui lòng đăng nhập tài khoản </span>
                     <div class="user">
                         <label for="" style="display: block;">Tên đăng nhập</label>
-                        <input class="userInput" placeholder="Nhập tên" type="text" name="username">
+                        <input
+                            oninput="function inputUser (){ 
+                                     const cbx = document.getElementById('cbx2')
+                              if(document.querySelector('.userInput').value.length ===0 &&document.querySelector('.passInput').value.length ===0 &&cbx.checked ===false ){
+                                document.querySelector('.login_button').classList.remove('active')
+                              }else{
+                                document.querySelector('.login_button').classList.add('active')
+                              }
+                                 }inputUser()"
+                            class="userInput" placeholder="Nhập tên" type="text" name="username">
                         <svg onclick="clearValue()" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +51,16 @@
                     </div>
                     <div class="pass">
                         <label for="" style="display: block;">Mật khẩu</label>
-                        <input class="passInput" placeholder="Nhập mật khẩu" type="password" name="password">
+                        <input
+                            oninput="function inputUser (){ 
+                                   const cbx = document.getElementById('cbx2')
+                              if(document.querySelector('.userInput').value.length ===0 &&document.querySelector('.passInput').value.length ===0 &&cbx.checked ===false ){
+                                document.querySelector('.login_button').classList.remove('active')
+                              }else{
+                                document.querySelector('.login_button').classList.add('active')
+                              }
+                                 }inputUser()"
+                            class="passInput" placeholder="Nhập mật khẩu" type="password" name="password">
                         <svg onclick="showpass(this)" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -84,7 +102,7 @@
                                 </svg>
                             </label>
                         </div>
-                        <span >Ghi nhớ mật khẩu</span>
+                        <span>Ghi nhớ mật khẩu</span>
                     </div>
                     <button class="login_button">
                         Đăng nhập
@@ -96,37 +114,38 @@
     </div>
 
     <script>
-      
-        const notei =()=>{
+
+        const notei = () => {
             const cbx = document.getElementById('cbx2')
-            if(cbx.checked === true){
+            if (cbx.checked === true) {
                 document.querySelector('.login_button').classList.add('active')
-            }else{
-                document.querySelector('.login_button').classList.remove('active')
+            } else {
+                // document.querySelector('.login_button').classList.remove('active')
             }
-  
+
         }
-        const online = localStorage.getItem('online')?localStorage.getItem('online'):false
+        const online = localStorage.getItem('online') ? localStorage.getItem('online') : false
         window.addEventListener('load', () => {
             if (online) {
                 window.location.href = '/index.html'
             } else {
-                
+
             }
         })
+
         document.querySelector('.login_button').addEventListener('click', () => {
-            if(document.querySelector('.userInput').value === 'admin' && document.querySelector('.passInput').value ==='123'){
+            if (document.querySelector('.userInput').value === 'admin' && document.querySelector('.passInput').value === '123') {
                 localStorage.setItem('online', true)
                 window.location.href = '/index.html'
-            }else{
+            } else {
                 window.location.reload()
             }
 
         })
-        
-        
-        
-        </script>
+
+
+
+    </script>
 </body>
 
 </html>

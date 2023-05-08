@@ -1,12 +1,40 @@
+<style>
+    .popupSearch {
+        position: absolute;
+        background-color: white;
+        z-index: 1000;
+        width: calc(100% + 5%);
+        left: calc(0px - 2%);
+    }
+
+    .research {
+        padding: 8px 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 !important;
+        padding-left: 10px;
+    }
+
+    .research:hover {
+        background-color: rgba(85, 138, 105, 0.137);
+    }
+    .contentSearch{
+        color: rgba(54, 80, 58, 0.37);
+    }
+</style>
 <div class="navbar_main">
     <div class="navbar_main_left">
 
     </div>
     <div class="navbar_main_right">
         <div class="search">
-            <div class="search_content">
+            <div class="search_content" style="position: relative;">
                 <img src="../img/icon/search.png" alt="">
-                <input placeholder="Tìm kiếm" type="text">
+                <input oninput="search(this)" placeholder="Tìm kiếm" type="text">
+                <div class="popupSearch">
+
+                </div>
             </div>
         </div>
         <div class="notifical">
@@ -17,3 +45,54 @@
         </div>
     </div>
 </div>
+<script>
+
+    const search = (e) => {
+
+        const popupSearch = document.querySelector('.popupSearch')
+        popupSearch.innerHTML = ''
+        let arrFoodData = JSON.parse(localStorage.getItem('foodData')) ? JSON.parse(localStorage.getItem('foodData')) : []
+        let arremploy = JSON.parse(localStorage.getItem('employee')) ? JSON.parse(localStorage.getItem('employee')) : []
+        let arringredient = JSON.parse(localStorage.getItem('ingredient')) ? JSON.parse(localStorage.getItem('ingredient')) : []
+        let id1 = arrFoodData.map(item => {
+            item.ids = 'foodData'
+            return item
+        })
+        let id2 = arremploy.map(item => {
+            item.ids = 'employee'
+            return item
+        })
+        let id3 = arringredient.map(item => {
+            item.ids = 'ingredient'
+            return item
+        })
+        let arrFull = [...id1, ...id2, ...id3]
+
+
+        const values = e.value
+        const searchArr = arrFull.filter((item, index) => {
+            return item.nameFood.toLocaleLowerCase().includes(values.toLocaleLowerCase())
+        })
+        const newMap = searchArr.map((item, index) => {
+            let idnew = item.ids === 'foodData' ? 'Món ăn' : item.ids === 'employee' ? 'Nhân viên' : item.ids === 'ingredient' ? 'Nguyên liệu' : ''
+            return idnew
+        })
+
+        let html = ``
+        searchArr.map((item, index) => {
+            let idnew = item.ids === 'foodData' ? 'Món ăn' : item.ids === 'employee' ? 'Nhân viên' : item.ids === 'ingredient' ? 'Nguyên liệu' : ''
+            const toUpperCase = item.nameFood.replace(item.nameFood.slice(0, 1), item.nameFood.slice(0, 1).toLocaleUpperCase())
+            html += `<div onclick="handleSearch('${item.ids}')" class="research"><div style="font-weight:100; font-size:14px;     font-family: Arial, Helvetica, sans-serif;">${toUpperCase}</div><div class="contentSearch" style="font-weight:600;      font-family: Arial, Helvetica, sans-serif;">${idnew}</div></div>`
+        })
+        if (searchArr.length > 0 && values.length > 0) {
+            popupSearch.innerHTML = html
+        } else {
+            popupSearch.innerHTML = ''
+        }
+    }
+ const handleSearch = (e)=>{
+console.log(e);
+    const title = e === 'foodData'?'/food/food.html':e=== 'employee'  ?'/employee/employee.html': e === 'ingredient'? '/ingredient/ingredient.html':''
+   window.location.href = title
+ }
+</script>

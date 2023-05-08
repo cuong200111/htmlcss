@@ -13,9 +13,9 @@ let arrFoodData = JSON.parse(localStorage.getItem('ingredient')) ? JSON.parse(lo
 const textInputImg = document.querySelector('.textInputImg')
 
 const changFile = (e) => {
-    
+
     const va = e.files[0].name
- 
+
     textInputImg.innerHTML = `<span>${va}</span>`
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -24,21 +24,21 @@ const changFile = (e) => {
     }
     reader.readAsBinaryString(fileFood.files[0])
 }
-const clearInput = ()=>{
+const clearInput = () => {
     textInputImg.innerHTML = `Not selected file`
 }
 const undoData = () => {
     window.location.reload()
 }
 const addFood = () => {
-    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 350px;padding: 5px;left: 75%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
-        <span style="color:white;margin-left:5px">Thêm thành công 1 nguyên liệu</span>
+        <span style="color:white;margin-left:5px; font-family: Arial, Helvetica, sans-serif;" >Thêm thành công 1 nguyên liệu</span>
     </div>
-    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer; font-family: Arial, Helvetica, sans-serif;">Hoàn tác</span>
     </div>`
-    document.querySelector('.ptop').innerHTML=g
+    document.querySelector('.ptop').innerHTML = g
     const day = new Date(time.value).getDay()
     const month = new Date(time.value).getMonth() + 1
     const year = new Date(time.value).getFullYear()
@@ -59,13 +59,13 @@ const addFood = () => {
 
 let htmlfood = ``
 const quantity = document.querySelector('.quantity')
-quantity.innerHTML = `<span> Đang có ${arrFoodData.length} nguyên liệu</span>`
+quantity.innerHTML = `<span  style="font-family: Arial, Helvetica, sans-serif;"> Đang có ${arrFoodData.length} nguyên liệu</span>`
 const food_main_bottom_container_items = document.querySelector('.food_main_bottom_container_items')
 arrFoodData.map((item, index) => {
     htmlfood += `    <div class="food_main_bottom_container_item">
-    <img src="data:image/png;base64,${item.imgData}" alt="">
+    <img class="imgAvata" src="data:image/png;base64,${item.imgData}" alt="">
     <div onclick="handleDelete(this,${index})" class="checkRemove"></div>
-    <div class="title_food_container">
+    <div class="title_food_container" >
         <span>${item.nameFood}</span>
         <div class="con-like">
             <input title="like" type="checkbox" class="like">
@@ -116,21 +116,21 @@ arrFoodData.map((item, index) => {
 
 
 })
-const deleteempoly = (i)=>{
-    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+const deleteempoly = (i) => {
+    let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 350px;padding: 5px;left: 75%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
-        <span style="color:white;margin-left:5px">Xóa thành công 1 nguyên liệu</span>
+        <span style="color:white;margin-left:5px;    font-family: Arial, Helvetica, sans-serif;">Xóa thành công 1 nguyên liệu</span>
     </div>
-    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;    font-family: Arial, Helvetica, sans-serif;">Hoàn tác</span>
     </div>`
-    document.querySelector('.ptop').innerHTML=g
-    const fill = arrFoodData.filter((item,index)=>{
+    document.querySelector('.ptop').innerHTML = g
+    const fill = arrFoodData.filter((item, index) => {
         return index !== i
     })
 
     setTimeout(() => {
-        localStorage.setItem('ingredient',JSON.stringify(fill))
+        localStorage.setItem('ingredient', JSON.stringify(fill))
         window.location.reload()
     }, 2000)
 }
@@ -159,7 +159,7 @@ const handleDelete = (e, i) => {
 }
 const handleDeleteicon = () => {
     document.querySelector('.deleteHandlefood').classList.toggle('active')
-    localStorage.setItem('action',JSON.stringify({trash:true,add:false}))   
+    localStorage.setItem('action', JSON.stringify({ trash: true, add: false }))
     document.querySelectorAll('.checkRemove').forEach(item => {
         if (document.querySelector('.deleteHandlefood.active')) {
             item.setAttribute('style', 'z-index:1000')
@@ -178,20 +178,20 @@ const handleDeleteicon = () => {
 }
 
 const deleteHandlefood = () => {
-    let g= `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
+    let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 350px;padding: 5px;left: 75%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
-        <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} nguyên liệu</span>
+        <span style="color:white;margin-left:5px;    font-family: Arial, Helvetica, sans-serif;">Xóa thành công ${arrDelete.length} nguyên liệu</span>
     </div>
-    <span  onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span  onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;    font-family: Arial, Helvetica, sans-serif;">Hoàn tác</span>
     </div>`
-    document.querySelector('.ptop').innerHTML=g
+    document.querySelector('.ptop').innerHTML = g
     document.querySelector('.notiDelete').classList.add('active')
 
     const newArr = arrFoodData.filter((item, index) => {
         return !arrDelete.includes(index)
     })
-  
+
     setTimeout(() => {
         localStorage.setItem('ingredient', JSON.stringify(newArr))
         window.location.reload()
@@ -303,13 +303,16 @@ let time2 = null
 let descripts222 = null
 let quatity2 = null
 let ins = null
+let day2 = null
+let month2 = null
+let year2 = null
 const upEmployee = (i) => {
     ins = i
     let ht = `   <div class="popup_add_header">
-<h1>Chi tiết thực phẩm</h1>
+<h1 style="text-align:center;font-family: Arial, Helvetica, sans-serif;font-size:20px;padding:35px 0 15px 0">Chi tiết thực phẩm</h1>
 </div>
 <div class="popup_add_container">
-<img src="data:image/png;base64,${arrFoodData[i].imgData}" />
+<img style="padding:25px 0;" src="data:image/png;base64,${arrFoodData[i].imgData}" />
 
 <div style="align-self: start;margin-left: 8%;padding: 5px;">
     <label for="">Tên Nguyên liệu</label>
@@ -339,7 +342,7 @@ const upEmployee = (i) => {
 </div>
 
 <div style="width: 80%;">
-    <input  class="time2" placeholder="Nhâp thời gian" style="width:100%;padding: 5px;"
+    <input  class="time2" onchange="handletime2(this)" placeholder="Nhâp thời gian" style="width:100%;padding: 5px;"
         type="date">
 </div>
 <div style="align-self: start;margin-left: 8%;padding: 5px;">
@@ -379,14 +382,24 @@ const upEmployee = (i) => {
     descripts22 = document.querySelector('.descripts22')
     categoryFood2 = document.querySelector('.categoryFood2')
     address2 = document.querySelector('.address2')
-    time2 = document.querySelector('.time2')
+ 
     descripts222 = document.querySelector('.descripts222')
     quatity2 = document.querySelector('.quatity2')
 }
-const destroy = ()=>{
+const handletime2 = (e)=>{
+  
+    const day = new Date(e.value).getDate()
+    const month = new Date(e.value).getMonth() + 1
+    const year = new Date(e.value).getFullYear()
+    day2 = day
+    month2 = month
+    year2 = year
+}
+const destroy = () => {
     document.querySelector('.popup_add2').classList.remove('active')
 }
 const upingredient = () => {
+const strDate =  `Ngày ${day2} tháng ${month2} năm ${year2}`
     arrFoodData.forEach((item, index) => {
         if (ins === index) {
             item.quatity = quatity2.value
@@ -395,7 +408,7 @@ const upingredient = () => {
             item.descripts = descripts22.value
             item.categoryFood = categoryFood2.value
             item.address = address2.value
-
+            item.time = strDate
         }
     })
     localStorage.setItem('ingredient', JSON.stringify(arrFoodData))
@@ -408,7 +421,7 @@ document.addEventListener('click', (e) => {
 }, true)
 
 
-const handlehide = ()=>{
+const handlehide = () => {
     document.querySelector('.popup_add').classList.remove('active')
     document.querySelector('.bg_food').classList.remove('active')
 }

@@ -31,9 +31,9 @@ const addFood = () => {
     let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
 <div style="display:flex;justify-content: center;align-items: center;">
     <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
-    <span style="color:white;margin-left:5px">Đã thêm 1 món ăn</span>
+    <span style="color:white;margin-left:5px; font-family: Arial, Helvetica, sans-serif;">Đã thêm 1 món ăn</span>
 </div>
-<span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+<span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer; font-family: Arial, Helvetica, sans-serif;">Hoàn tác</span>
 </div>`
     document.querySelector('.ptop').innerHTML = g
     const newData = { nameFood: nameFood.value, descripts: descripts.value, categoryFood: categoryFood.value, date: new Date().getTime(), imgData: base64Data }
@@ -46,7 +46,7 @@ const addFood = () => {
 
 let htmlfood = ``
 const quantity = document.querySelector('.quantity')
-quantity.innerHTML = `<span>${arrFoodData.length} món</span>`
+quantity.innerHTML = `<span  style="font-family: Arial, Helvetica, sans-serif;">${arrFoodData.length} món</span>`
 const food_main_bottom_container_items = document.querySelector('.food_main_bottom_container_items')
 arrFoodData.map((item, index) => {
     htmlfood += `    <div class="food_main_bottom_container_item">
@@ -135,9 +135,9 @@ const deleteHandlefood = () => {
     let g = `<div style="position:absolute;border-radius:4px;background-color: #00933B;display:flex;justify-content: space-between;align-items: center;width: 300px;padding: 5px;left: 77%;top: 14%;">
     <div style="display:flex;justify-content: center;align-items: center;">
         <img style="width: 20px;" src="../img/icon/mdi_tick.png" /> 
-        <span style="color:white;margin-left:5px">Xóa thành công ${arrDelete.length} món ăn</span>
+        <span style="    font-family: Arial, Helvetica, sans-serif;color:white;margin-left:5px">Xóa thành công ${arrDelete.length} món ăn</span>
     </div>
-    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;">Hoàn tác</span>
+    <span onclick="undoData()" style="text-decoration: underline;color: white;cursor: pointer;    font-family: Arial, Helvetica, sans-serif;">Hoàn tác</span>
     </div>`
     document.querySelector('.ptop').innerHTML = g
     document.querySelector('.notiDelete').classList.add('active')

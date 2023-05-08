@@ -9,39 +9,174 @@
     <link rel="stylesheet" href="./navbar/navbar.css">
     <link rel="stylesheet" href="./header/header.css">
     <link rel="stylesheet" href="./home.css">
+    <link rel="stylesheet" href="jquery-ui-1.13.2.custom/jquery-ui.css">
+    <link rel="stylesheet" href="jquery-ui-1.13.2.custom/jquery-ui.min.css">
+    <script src="https://kit.fontawesome.com/c08976f15f.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
+<style>
+    div.google-visualization-tooltip {
+        font-size: 15px;
+        background-color: rgb(255, 255, 255);
+
+    }
+</style>
 
 <body>
+
     <div style="width: 100%;height: 100vh;display: flex;">
         <!-- navbar -->
-        <div include-html="./navbar/navbar.html" id="navbar_file"
+        <div class="bg" include-html="./navbar/navbar.html" id="navbar_file"
             style="width: 25%; height: 100%; border-right: 1px solid rgba(0, 0, 0, 0.282);">
         </div>
         <!-- header and container -->
-        <div  style="width:85%; height: 100%;position: relative;">
+        <div style="width:85%; height: 100%;position: relative;">
 
-            <div include-html="./header/header.html" id="header_file"
+            <div class="bg" include-html="./header/header.html" id="header_file"
                 style=" width: 100%;height: 10%;border-bottom: 1px solid rgba(0, 0, 0, 0.282);">
             </div>
+            <div style=" width: 100%;height:calc(90% - 2px) ;border-bottom: 1px solid rgba(0, 0, 0, 0.282);">
+                <div class="bg" style="height: 10%;display: flex;justify-content: space-between;padding: 10px;">
+                    <div class="titleHome"
+                        style="display: flex;justify-content: space-between;flex-direction: column;padding: 10px;">
+                        <div style="font-family: Arial, Helvetica, sans-serif;font-weight: 600;font-size: 25px;">Tổng
+                            quan ngày hôm nay:
+                        </div>
+                        <div style="font-family: Arial, Helvetica, sans-serif;font-size: 13.5px;" class="dateNow"></div>
+                    </div>
+                  
 
+                </div>
+                <div style="height: 10%;display: flex;justify-content: space-between;width: 100%;align-items: center"
+                    class="containerHome">
+                    <div style="height: 80%; border-radius: 10px;cursor: pointer;padding: 0px 160px 0 0;background: #00933B33;display: flex;margin: 0 0 0 130px;justify-content: center;align-items: center;">
+                        <div style="margin: 20px;"><img width="40px" src="./img/icon/bxs_dish.png" alt=""></div>
+                        <div>
+                            <div style="font-weight: 600;">Món ăn</div>
+                            <div class="foodsetting">20 món</div>
+                        </div>
+                    </div>
+                    <div style="height: 80%;border-radius: 10px;cursor: pointer;padding: 0px 160px 0 0;background: #00933B33;display: flex;margin: 0 0 0 0px;justify-content: center;align-items: center;">
+                        <div style="margin: 20px;"><img width="40px" src="./img/icon/bxs_dish_user.png" alt=""></div>
+                        <div>
+                            <div style="font-weight: 600;">Nhân viên</div>
+                            <div class="employsetting">20 nhân viên</div>
+                        </div>
+                    </div>
+                    <div style="height: 80%;border-radius: 10px;cursor: pointer;padding: 0px 110px 0 0;background: #00933B33;display: flex;margin: 0 130px 0 0px;justify-content: center;align-items: center;">
+                        <div style="margin: 20px;"><img width="40px" src="./img/icon/bxs_dish_ingredient.png" alt=""></div>
+                        <div>
+                            <div style="font-weight: 600;">Kho nguyên liệu</div>
+                            <div class="ingredientsetting"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 70%;">
+                    <div style="display:flex;height:15%;justify-content:space-between;align-items:  flex-end;padding: 15px"
+                        class="titleChart">
+                        <div style="font-size:25px;font-weight: 600;margin-left: 10px;font-family: Arial, Helvetica, sans-serif;">
+                            Thống kê
+                        </div>
+                        <!-- <div style="cursor: pointer;user-select: none;"> -->
+                            <!-- <span style="background-color: #A0EFC0;padding: 5px;border-radius: 5px;"> Đơn món <img
+                                    src="./img/icon/material-symbols_keyboard-arrow-down.png" alt=""></span> -->
+                        <!-- </div> -->
+                        <div style="position: relative;width: 10%;top: 2px;left: 0;" class="dateInput">
+
+
+                            <input id="datePicker" type="text">
+                            <i style="left:3%;position:absolute;bottom: 2px;" class="fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+                    <!-- chart -->
+                    <div style="position: relative;height: 83.5%;overflow: hidden;display: flex;justify-content: center;
+                    align-items: center;width: 100%;">
+
+
+                        <main style="display: block;width: 100%;height: 100%;margin-bottom: 50px;">
+                      
+                            <!-- <h5>Số lượng đặt hàng theo từng ngày</h5> -->
+                            <div style="cursor: pointer;width: 100%;height: 120%;" id="chart_div"></div>
+                            <!-- <h1 class="detail">Xem chi tiết</h1> -->
+                        </main>
+                        <!-- <h5 class="detailDate" style="position: absolute;top: 24%;left: 35%;font-size: 20px;"></h5> -->
+                        <!-- <div id="pie-chart"></div> -->
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
+    <script>
+        // Lấy thời gian hiện tại
+        const currentTime = new Date();
+        // Lấy thứ
+        const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
+        const dayOfWeek = days[currentTime.getDay()];
 
+        // Lấy ngày
+        const day = currentTime.getDate();
+
+        // Lấy tháng
+        const month = currentTime.getMonth() + 1;
+
+        // Lấy năm
+        const year = currentTime.getFullYear();
+
+        // Format ngày tháng năm
+        const formattedDate = dayOfWeek + ' ' + day + '/' + month + '/' + year;
+
+        // Thay thế vào dấu $ trong chuỗi truyền vào
+        let replacedString = '($) ngày ($)/($)/($)';
+        replacedString = replacedString.replace('($)', dayOfWeek);
+        replacedString = replacedString.replace('($)', day);
+        replacedString = replacedString.replace('($)', month);
+        replacedString = replacedString.replace('($)', year);
+        let inputDate = document.querySelector('.dateInput');
+        $(() => {
+            $('#datePicker').val(day + "-" + month + "-" + year)
+            $('#datePicker').css({
+                position: "absolute",
+                cursor: "pointer",
+                width: "60%",
+                bottom:"-10px",
+                padding: "10px 20px"
+            })
+            $('#datePicker').datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+
+            })
+        })
+
+
+        document.querySelector('.dateNow').innerHTML = replacedString
+        // document.querySelector('.detailDate').innerHTML = `Chi tiết món bán chạy Ng ${day+'-'+month+'-'+year}`
+    </script>
+
+
+    <script>
+        //  window.location.href = './food/food.html'
+        localStorage.setItem('action', JSON.stringify({ trash: false, add: false }))
+        const online = localStorage.getItem('online') ? localStorage.getItem('online') : false
+        window.addEventListener('load', () => {
+            if (online) {
+
+            } else {
+                window.location.href = 'login/login.html'
+            }
+        })
+    </script>
 
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/include-html.min.js"></script>
-<script>
-     window.location.href = './food/food.html'
-  localStorage.setItem('action',JSON.stringify({trash:false,add:false}))
-    const online = localStorage.getItem('online')?localStorage.getItem('online'):false
-    window.addEventListener('load', ()=>{
-        if(online){
-        
-        }else{
-            window.location.href = 'login/login.html'
-        }
-    })
-</script>
+    <script src="./jquery-ui-1.13.2.custom/jquery-ui.min.js"></script>
+    <script src="./jquery-ui-1.13.2.custom/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="./home.js"></script>
 </body>
 
 </html>
